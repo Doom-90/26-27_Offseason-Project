@@ -4,28 +4,36 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.examples.Constants;
+import org.firstinspires.ftc.teamcode.library.Constants;
 import org.firstinspires.ftc.teamcode.library.internal.Pose2D;
 import org.firstinspires.ftc.teamcode.library.internal.TelemetryPasser;
 
 /**
+ * <div style="background-color: #0CA366; color: black; border-bottom: 4px dashed black;">
  * <h1>Mechanum Drive</h1>
  * <p>This drivetrain type uses 4 mechanum wheels in a standard linear setup.
  * This layout allows for optimal control on a flat surface.
  * Due to the nature of mechanum wheel,
  * this drivetrain type is not optimal for slopes or rough surfaces.</p>
- * <hr/>
- * <h6>Uses:</h4>
- * <ol>
+ * </div>
+ * <div style="background-color: #009AD2; color: black; border-top: 4px dashed black;">
+ * <h6>Strengths:</h4>
+ * <ul>
  *     <li>Linear Movement</li>
  *     <li>Strafing</li>
  *     <li>Rotation</li>
  *     <li>Agility</li>
- * </ol>
- * @author ByteOfToast
+ * </ul>
+ * <h6>Weaknesses</h6>
+ * <ul>
+ *     <li>Prone to slipping</li>
+ *     <li>Only works on flat surfaces</li>
+ * </ul>
+ * </div>
+ * @author Phillip
+ * @author Noah
  * @since 03/15/2026
- * @version 0.0.0 (03/15/2026)
- * @see <a href="https://gm0.org/en/latest/docs/common-mechanisms/drivetrains/holonomic.html">gm zero</a>
+ * @version 0.1.0 (04/02/2026)
  */
 public class MechanumDrive {
     private final DcMotor frontLeftMotor;
@@ -79,27 +87,45 @@ public class MechanumDrive {
     }
 
     /**
-     * Y IS FORWARDS AND BACKWARDS
-     * @param y +forwards and -backwards
-     * @param x strafe -left and +right
-     * @param h turn +right and -left
+     * calculates and applies optimal motor speeds given xyh input
+     * @param input Pose2D xyh input from joysticks or otherwise
      */
-    public void rcControl(double y, double x, double h){
-        // Uses dead zone and applies drivetrain exponent index
-        x = (Math.abs(x)<0.2) ? 0 : Math.pow(x, Constants.drivetrainExponentIndex);
-        y = (Math.abs(y)<0.2) ? 0 : Math.pow(y, Constants.drivetrainExponentIndex);
-        h = (Math.abs(h)<0.2) ? 0 : Math.pow(h, Constants.drivetrainExponentIndex);
+    public void rcControl(Pose2D input){
+        /*
+        * converts all input to positive values and saves whether they need to be flipped after the drivetrain exponential index is applied.
+        * This makes sure that an input always results in an output of the same sign.
+        * ex. -0.5 won't return 0.25 when the drivetrain exponential index is 2
+        * This also ensures that calcVar can always be calculated, since some exponents only accept positive input
+        */
+        boolean xFlip = false;
+        boolean yFlip = false;
+        boolean hFlip = false;
+        if (input.x<0) {
+            xFlip = true;
+        } else if (input.y<0) {
+            yFlip = true;
+        } else if (input.h<0) {
+            hFlip = true;
+        }
+        // applies drivetrain exponent index and flip boolean
+        double calcX = Math.pow(Math.abs(input.x), Constants.drivetrainExponentIndex);
+        if (xFlip) calcX *= -1;
+        double calcY = Math.pow(Math.abs(input.y), Constants.drivetrainExponentIndex);
+        if (yFlip) calcY *= -1;
+        double calcH = Math.pow(Math.abs(input.h), Constants.drivetrainExponentIndex);
+        if (hFlip) calcH *= -1;
 
         // Calculates motor values before being compressed to range
-        double fr = y - x - h;
-        double fl = y + x + h;
-        double br = y + x - h;
-        double bl = y - x + h;
+        double fr = calcY - calcX - calcH;
+        double fl = calcY + calcX + calcH;
+        double br = calcY + calcX - calcH;
+        double bl = calcY - calcX + calcH;
 
         // Calculates scale to compress motor values to range [-1,1]
+        // Also accounts for required speed to move so that the motors don't burn out
         double max = Math.max(Math.max(Math.abs(fr), Math.abs(fl)), Math.max(Math.abs(br), Math.abs(bl)));
-        double magnitude = Math.sqrt(x*x + y*y + h*h)/Math.sqrt(3);
-        double scale = (max > 0) ? (magnitude / max) : 0;
+        double magnitude = Math.sqrt(calcX*calcX + calcY*calcY + calcH*calcH)/Math.sqrt(3);
+        double scale = (max > Constants.drivetrainMinimumMoveableSpeed) ? (magnitude / max) : 0;
 
         // Applies scale to set motor powers
         frontRightMotor.setPower(fr*scale);

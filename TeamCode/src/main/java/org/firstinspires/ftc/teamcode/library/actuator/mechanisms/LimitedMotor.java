@@ -16,7 +16,7 @@ import com.qualcomm.robotcore.util.Range;
  * <p>0 must be within the range of the motor, although the top limit cannot be 0</p>
  * @since 03/15/2026
  * @version 0.1.0 (03/15/2026)
- * @author ByteOfToast
+ * @author Noah
  */
 public class LimitedMotor {
     public final int bottomLimit;

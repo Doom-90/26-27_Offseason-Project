@@ -8,6 +8,22 @@ import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 
+/**
+ * <div style="background-color: #0CA366; color: black; border-bottom: 4px dashed black;">
+ * <h1>Title</h1>
+ * </div>
+ * <div style="background-color: #009AD2; color: black; border-top: 4px dashed black; border-bottom: 4px dashed black;">
+ * <h2>Overview</h2>
+ * <p>example text</p>
+ * </div>
+ * <div style="background-color: #0CA366; color: black; border-top: 4px dashed black;">
+ * <h2>Other Stuff</h2>
+ * </div>
+ * @author Phillip
+ * @author Noah
+ * @since 09/06/2025
+ * @version 6.1.1 (03/02/2026)
+ */
 public class Pose2D {
     public double x;
     public double y;
