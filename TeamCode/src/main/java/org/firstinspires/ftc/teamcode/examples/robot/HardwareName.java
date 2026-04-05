@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.library;
+package org.firstinspires.ftc.teamcode.examples.robot;
 
 /**
  * <div style="background-color: #0CA366; color: black; border-bottom: 4px dashed black;">
@@ -14,4 +14,22 @@ package org.firstinspires.ftc.teamcode.library;
  * @version -1.0.0 (04/02/2026)
  */
 public enum HardwareName {
+    FRONT_LEFT_MOTOR("lf"),
+    FRONT_RIGHT_MOTOR("rf"),
+    BACK_LEFT_MOTOR("lb"),
+    BACK_RIGHT_MOTOR("rb"),
+    ODOMETRY_SENSOR("otos"),
+    LIMELIGHT("limelight"),
+    IMU("imu");
+
+    private final String name;
+
+    HardwareName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
 }

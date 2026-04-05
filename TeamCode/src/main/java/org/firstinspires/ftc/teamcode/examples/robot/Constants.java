@@ -1,7 +1,10 @@
-package org.firstinspires.ftc.teamcode.library;
+package org.firstinspires.ftc.teamcode.examples.robot;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.bylazar.configurables.annotations.Configurable;
+
+import org.firstinspires.ftc.teamcode.library.internal.Pose2D;
+import org.firstinspires.ftc.teamcode.library.internal.pid.PIDConstants;
 
 /**
  * <div style="background-color: #0CA366; color: black; border-bottom: 4px dashed black;">
@@ -38,4 +41,33 @@ import com.bylazar.configurables.annotations.Configurable;
 public class Constants {
     public static double drivetrainExponentIndex = 3;
     public static double drivetrainMinimumMoveableSpeed = 0.25;
+    public static double otosPhysicalOffsetInchesX = -1.57;
+    public static double otosPhysicalOffsetInchesY = -1.42;
+    public static double otosPhysicalOffsetDegreesH = 0;
+    public static Pose2D getPhysicalOffset(){
+        return new Pose2D(otosPhysicalOffsetInchesX, otosPhysicalOffsetInchesY, otosPhysicalOffsetDegreesH);
+    }
+
+    public static double inchesToEncoderDrivetrain = 41.8013539662;
+
+    public static double drivetrainLinearKp = 0.08;
+    public static double drivetrainLinearKi = 0;
+    public static double drivetrainLinearKd = 0;
+    public static PIDConstants getLinearPIDConstants() {
+        return new PIDConstants(drivetrainLinearKp, drivetrainLinearKi, drivetrainLinearKd);
+    }
+
+    public static double drivetrainAngularKp = 0;
+    public static double drivetrainAngularKi = 0;
+    public static double drivetrainAngularKd = 0;
+    public static PIDConstants getAngularPIDConstants() {
+        return new PIDConstants(drivetrainAngularKp, drivetrainAngularKi, drivetrainAngularKd);
+    }
+
+    public static double pidToleranceX = 2;
+    public static double pidToleranceY = 2;
+    public static double pidToleranceH = 0.2;
+    public static Pose2D getPIDTolerance(){
+        return new Pose2D(pidToleranceX, pidToleranceY, pidToleranceH);
+    }
 }
