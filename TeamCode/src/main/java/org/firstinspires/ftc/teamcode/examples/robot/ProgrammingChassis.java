@@ -5,21 +5,23 @@ import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.library.actuator.drivetrain.MechanumDrive;
 import org.firstinspires.ftc.teamcode.library.sensor.localization.Limelight;
 import org.firstinspires.ftc.teamcode.library.sensor.localization.OTOSSensor;
+import org.firstinspires.ftc.teamcode.library.sensor.localization.Webcam;
 
 public class ProgrammingChassis {
     private MechanumDrive drivetrain;
     private OTOSSensor otosSensor;
-    private Limelight limelight;
+    private Webcam webcam;
 
-    public ProgrammingChassis(MechanumDrive drivetrain, OTOSSensor otosSensor, Limelight limelight) {
+    public ProgrammingChassis(MechanumDrive drivetrain, OTOSSensor otosSensor, Webcam webcam) {
         this.drivetrain = drivetrain;
         this.otosSensor = otosSensor;
-        this.limelight = limelight;
+        this.webcam = webcam;
         this.otosSensor.configureOtos(Constants.getPhysicalOffset(), DistanceUnit.INCH, AngleUnit.DEGREES, 1, 1); //default
     }
 
@@ -49,7 +51,7 @@ public class ProgrammingChassis {
                         hardwareMap.get(DcMotor.class, HardwareName.BACK_RIGHT_MOTOR.getName())
                 ),
                 new OTOSSensor(hardwareMap.get(SparkFunOTOS.class, HardwareName.ODOMETRY_SENSOR.getName())),
-                new Limelight(hardwareMap.get(Limelight3A.class, HardwareName.LIMELIGHT.getName()))
+                new Webcam(hardwareMap.get(CameraName.class, HardwareName.WEBCAM.getName()))
         );
     }
 }

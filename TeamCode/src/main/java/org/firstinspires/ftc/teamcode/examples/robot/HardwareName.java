@@ -20,6 +20,8 @@ public enum HardwareName {
     BACK_RIGHT_MOTOR("rb"),
     ODOMETRY_SENSOR("otos"),
     LIMELIGHT("limelight"),
+    WEBCAM("webcam"),
+
     IMU("imu");
 
     private final String name;
