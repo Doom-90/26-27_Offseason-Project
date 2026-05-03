@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.examples.robot;
 
-import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -9,7 +8,6 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.library.actuator.drivetrain.MechanumDrive;
-import org.firstinspires.ftc.teamcode.library.sensor.localization.Limelight;
 import org.firstinspires.ftc.teamcode.library.sensor.localization.OTOSSensor;
 import org.firstinspires.ftc.teamcode.library.sensor.localization.Webcam;
 

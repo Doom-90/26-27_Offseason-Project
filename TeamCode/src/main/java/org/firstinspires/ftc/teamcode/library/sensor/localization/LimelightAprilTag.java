@@ -8,11 +8,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.library.internal.Pose2D;
 import org.firstinspires.ftc.teamcode.library.internal.telemetry.TelemetryPasser;
 
-public class Limelight {
+public class LimelightAprilTag {
     private Limelight3A limelight;
     private final double LL_POSITION_TOLERANCE = 5;
     private final double METERS_TO_INCHES = 39.3700787;
-    public Limelight(Limelight3A limelight) {
+    public LimelightAprilTag(Limelight3A limelight) {
         this.limelight = limelight;
         this.limelight.start();
     }
