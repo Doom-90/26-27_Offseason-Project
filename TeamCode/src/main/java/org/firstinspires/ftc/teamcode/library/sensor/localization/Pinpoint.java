@@ -29,6 +29,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
 import org.firstinspires.ftc.teamcode.hardware.GoBildaPinpoint;
 import org.firstinspires.ftc.teamcode.library.internal.Pose2D;
+import org.firstinspires.ftc.teamcode.library.internal.telemetry.TelemetryPasser;
 
 
 import java.util.Locale;
@@ -38,13 +39,12 @@ public class Pinpoint implements Localizer{
 
     GoBildaPinpoint pinpoint;
 
-    public Pinpoint(GoBildaPinpoint pinpoint, Pose2D offset) {
+    public Pinpoint(GoBildaPinpoint pinpoint) {
 
         this.pinpoint = pinpoint;
-        this.pinpoint.setOffsets(offset.x, offset.y, DistanceUnit.MM); //these are tuned for 3110-0002-0001 Product Insight #1
         this.pinpoint.setEncoderResolution(GoBildaPinpoint.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         this.pinpoint.setEncoderDirections(GoBildaPinpoint.EncoderDirection.FORWARD,
-                                           GoBildaPinpoint.EncoderDirection.FORWARD);
+                                           GoBildaPinpoint.EncoderDirection.REVERSED);
         this.pinpoint.resetPosAndIMU();
     }
     public Pose2D getPosition(){
@@ -67,13 +67,16 @@ public class Pinpoint implements Localizer{
                           pinpoint.getYOffset(DistanceUnit.INCH),
                           pinpoint.getHeadingOffset(AngleUnit.DEGREES));}
     public void setOffset(Pose2D offset){}
+    public void setPodOffsets(double xOffset, double yOffset) {
+        pinpoint.setPodOffsets(xOffset, yOffset, DistanceUnit.MM);
+    }
     public Pose2D getRelativePosition(Pose2D reference){
         return getPosition().subtract(reference);
     }
     public void setRelativePosition(Pose2D position, Pose2D reference){
         pinpoint.setPosition(position.add(reference));
     }
-        public void statusTelemetry() {
+    public void statusTelemetry() {
             /*
             Gets the Pinpoint device status. Pinpoint can reflect a few states. But we'll primarily see
             READY: the device is working as normal
@@ -86,6 +89,8 @@ public class Pinpoint implements Localizer{
             */
             telemetry.addData("Status", pinpoint.getDeviceStatus());
             telemetry.addData("Pinpoint Frequency", pinpoint.getFrequency()); //prints/gets the current refresh rate of the Pinpoint
-        }
     }
-
+    public void positionTelemetry(){
+        telemetry.addData("Position: ", getPosition());
+    }
+}

@@ -21,6 +21,7 @@ public enum HardwareName {
     ODOMETRY_SENSOR("otos"),
     LIMELIGHT("limelight"),
     WEBCAM("webcam"),
+    PINPOINT("pinpoint"),
 
     IMU("imu");
 

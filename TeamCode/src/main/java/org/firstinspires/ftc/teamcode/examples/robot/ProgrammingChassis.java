@@ -7,28 +7,27 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.hardware.GoBildaPinpoint;
 import org.firstinspires.ftc.teamcode.library.actuator.drivetrain.MechanumDrive;
 import org.firstinspires.ftc.teamcode.library.sensor.localization.OTOSSensor;
+import org.firstinspires.ftc.teamcode.library.sensor.localization.Pinpoint;
 import org.firstinspires.ftc.teamcode.library.sensor.localization.Webcam;
 
 public class ProgrammingChassis {
     private MechanumDrive drivetrain;
     private OTOSSensor otosSensor;
-    private Webcam webcam;
+    private Pinpoint pinpoint;
 
-    public ProgrammingChassis(MechanumDrive drivetrain, OTOSSensor otosSensor, Webcam webcam) {
+    public ProgrammingChassis(MechanumDrive drivetrain, Pinpoint pinpoint) {
         this.drivetrain = drivetrain;
-        this.otosSensor = otosSensor;
-        this.webcam = webcam;
-        this.otosSensor.configureOtos(Constants.getPhysicalOffset(), DistanceUnit.INCH, AngleUnit.DEGREES, 1, 1); //default
+        this.pinpoint = pinpoint;
     }
-
     public MechanumDrive getDrivetrain(){
         return drivetrain;
     }
 
-    public OTOSSensor getOtosSensor() {
-        return otosSensor;
+    public Pinpoint getPinpoint() {
+        return pinpoint;
     }
 
 
@@ -48,8 +47,7 @@ public class ProgrammingChassis {
                         hardwareMap.get(DcMotor.class, HardwareName.BACK_LEFT_MOTOR.getName()),
                         hardwareMap.get(DcMotor.class, HardwareName.BACK_RIGHT_MOTOR.getName())
                 ),
-                new OTOSSensor(hardwareMap.get(SparkFunOTOS.class, HardwareName.ODOMETRY_SENSOR.getName())),
-                new Webcam(hardwareMap.get(CameraName.class, HardwareName.WEBCAM.getName()))
+                new Pinpoint(hardwareMap.get(GoBildaPinpoint.class, HardwareName.PINPOINT.getName()))
         );
     }
 }

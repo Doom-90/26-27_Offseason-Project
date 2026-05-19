@@ -368,7 +368,7 @@ public class GoBildaPinpoint extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> 
      * @param yOffset how far forward from the center of the robot is the Y (Strafe) pod? forward increases
      * @deprecated The overflow for this function has a DistanceUnit, which can reduce the chance of unit confusion.
      */
-    public void setOffsets(double xOffset, double yOffset){
+    public void setPodOffsets(double xOffset, double yOffset){
         writeFloat(Register.X_POD_OFFSET, (float) xOffset);
         writeFloat(Register.Y_POD_OFFSET, (float) yOffset);
     }
@@ -382,7 +382,7 @@ public class GoBildaPinpoint extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> 
      * @param yOffset how far forward from the center of the robot is the Y (Strafe) pod? forward increases
      * @param distanceUnit the unit of distance used for offsets.
      */
-    public void setOffsets(double xOffset, double yOffset, DistanceUnit distanceUnit){
+    public void setPodOffsets(double xOffset, double yOffset, DistanceUnit distanceUnit){
         writeFloat(Register.X_POD_OFFSET, (float) distanceUnit.toMm(xOffset));
         writeFloat(Register.Y_POD_OFFSET, (float) distanceUnit.toMm(yOffset));
     }
@@ -721,10 +721,10 @@ public class GoBildaPinpoint extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> 
      */
     public Pose2D getPosition(){
         return new Pose2D(
-                xPosition,
-                yPosition,
+                DistanceUnit.INCH.fromMm(xPosition),
+                DistanceUnit.INCH.fromMm(yPosition),
                 //this wraps the hOrientation variable from -180° to +180°
-                ((hOrientation + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI);
+                AngleUnit.DEGREES.fromRadians(((hOrientation + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI));
     }
 
     /**
