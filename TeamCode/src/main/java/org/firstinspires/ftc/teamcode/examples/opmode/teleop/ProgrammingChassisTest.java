@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.examples.robot.ProgrammingChassis;
+import org.firstinspires.ftc.teamcode.hardware.GoBildaPinpoint;
 import org.firstinspires.ftc.teamcode.library.internal.Pose2D;
 import org.firstinspires.ftc.teamcode.library.internal.telemetry.TelemetryPasser;
 
@@ -15,7 +16,7 @@ import org.firstinspires.ftc.teamcode.library.internal.telemetry.TelemetryPasser
 public class ProgrammingChassisTest extends LinearOpMode {
     ProgrammingChassis robot;
     private final double XOFFSET = -60;
-    private final double YOFFSET = 168;
+    private final double YOFFSET = -168;
 
 
     @Override

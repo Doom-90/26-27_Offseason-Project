@@ -44,7 +44,7 @@ public class Pinpoint implements Localizer{
         this.pinpoint = pinpoint;
         this.pinpoint.setEncoderResolution(GoBildaPinpoint.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         this.pinpoint.setEncoderDirections(GoBildaPinpoint.EncoderDirection.FORWARD,
-                                           GoBildaPinpoint.EncoderDirection.REVERSED);
+                                           GoBildaPinpoint.EncoderDirection.FORWARD);
         this.pinpoint.resetPosAndIMU();
     }
     public Pose2D getPosition(){
