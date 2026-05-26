@@ -30,4 +30,8 @@ android {
 
 dependencies {
     implementation project(':FtcRobotController')
+    testImplementation platform("org.junit:junit-bom:6.0.2")
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 }
